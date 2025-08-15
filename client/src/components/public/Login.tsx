@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 
 export default function Login() {
-  const authContest = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
 
   type Inputs = {
     email: string;
@@ -14,7 +14,7 @@ export default function Login() {
 
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    authContest?.login(data);
+    authContext?.login(data);
   };
 
   return (

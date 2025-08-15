@@ -4,6 +4,8 @@ import Inspiration from "./components/public/Inspiration";
 import Plan from "./components/public/Plan";
 import Login from "./components/public/Login";
 import Recipes from "./components/public/Test";
+import Protected from "./components/admin/Protected";
+import RecipeForm from "./components/admin/RecipeForm";
 
 function App() {
   return (
@@ -14,6 +16,10 @@ function App() {
         <Route path="/inspiration" element={<Inspiration />} />
         <Route path="/plan" element={<Plan />} />
         <Route path="/auth/login" element={<Login />} />
+
+        <Route path="/" element={<Protected />}>
+          <Route path="/createRecipe" element={<RecipeForm />} />
+        </Route>
       </Routes>
     </>
   );

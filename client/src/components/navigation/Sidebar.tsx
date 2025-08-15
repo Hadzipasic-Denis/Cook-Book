@@ -1,10 +1,13 @@
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/logo.png"
+import logo from "../../assets/logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 
 export default function Sidebar() {
+  const authContext = useContext(AuthContext);
 
   return (
-    <div className="flex flex-col gap-2 items-center w-[300px] max-w-[300px] h-[100vh]">
+    <div className="flex flex-col gap-2 items-center w-[300px] max-w-[300px] h-[100vh] border-r shadow-xl">
       <div>
         <img src={logo} width={140} alt="logo" />
       </div>
@@ -22,7 +25,9 @@ export default function Sidebar() {
               <svg
                 className={`rounded-full p-2 transition-colors duration-300 
             ${
-              isActive ? "bg-[#689F1F] text-white" : "bg-slate-200 text-slate-700"
+              isActive
+                ? "bg-[#689F1F] text-white"
+                : "bg-slate-200 text-slate-700"
             } 
             group-hover:bg-[#1c7dd8] group-hover:text-white`}
                 xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +51,7 @@ export default function Sidebar() {
       <div className="pl-6 w-[200px]">
         <NavLink
           to="/recipes"
-           className={({ isActive }) =>
+          className={({ isActive }) =>
             `flex items-center gap-4 group font-medium tracking-wide ${
               isActive ? "text-slate-700" : "text-slate-500"
             }`
@@ -57,7 +62,9 @@ export default function Sidebar() {
               <svg
                 className={`rounded-full p-1 transition-colors duration-300 
             ${
-              isActive ? "bg-[#689F1F] text-white" : "bg-slate-200 text-slate-700"
+              isActive
+                ? "bg-[#689F1F] text-white"
+                : "bg-slate-200 text-slate-700"
             } 
             group-hover:bg-[#1c7dd8] group-hover:text-white`}
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +88,7 @@ export default function Sidebar() {
       <div className="pl-6 w-[200px]">
         <NavLink
           to="/inspiration"
-            className={({ isActive }) =>
+          className={({ isActive }) =>
             `flex items-center gap-4 group font-medium tracking-wide ${
               isActive ? "text-slate-700" : "text-slate-500"
             }`
@@ -92,7 +99,9 @@ export default function Sidebar() {
               <svg
                 className={`rounded-full p-1.5 transition-colors duration-300 
             ${
-              isActive ? "bg-[#689F1F] text-white" : "bg-slate-200 text-slate-700"
+              isActive
+                ? "bg-[#689F1F] text-white"
+                : "bg-slate-200 text-slate-700"
             } 
             group-hover:bg-[#1c7dd8] group-hover:text-white`}
                 xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +129,7 @@ export default function Sidebar() {
       <div className="pl-6 w-[200px]">
         <NavLink
           to="/plan"
-           className={({ isActive }) =>
+          className={({ isActive }) =>
             `flex items-center gap-4 group font-medium tracking-wide ${
               isActive ? "text-slate-700" : "text-slate-500"
             }`
@@ -131,7 +140,9 @@ export default function Sidebar() {
               <svg
                 className={`rounded-full p-1.5 transition-colors duration-300 
             ${
-              isActive ? "bg-[#689F1F] text-white" : "bg-slate-200 text-slate-700"
+              isActive
+                ? "bg-[#689F1F] text-white"
+                : "bg-slate-200 text-slate-700"
             } 
             group-hover:bg-[#1c7dd8] group-hover:text-white`}
                 xmlns="http://www.w3.org/2000/svg"
@@ -157,39 +168,123 @@ export default function Sidebar() {
       </div>
 
       <div className="pl-6 w-[200px]">
-        <NavLink
-          to="/auth/login"
-           className={({ isActive }) =>
-            `flex items-center gap-4 group font-medium tracking-wide ${
-              isActive ? "text-slate-700" : "text-slate-500"
-            }`
-          }
-        >
-          {({ isActive }) => (
-            <>
-              <svg
-                className={`rounded-full p-2 transition-colors duration-300 
+        {!authContext?.isLoading && (
+          <>
+            {!authContext?.user ? (
+              <>
+                <NavLink
+                  to="/auth/login"
+                  className={({ isActive }) =>
+                    `flex items-center gap-4 group font-medium tracking-wide ${
+                      isActive ? "text-slate-700" : "text-slate-500"
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      <svg
+                        className={`rounded-full p-2 transition-colors duration-300 
             ${
-              isActive ? "bg-[#689F1F] text-white" : "bg-slate-200 text-slate-700"
+              isActive
+                ? "bg-[#689F1F] text-white"
+                : "bg-slate-200 text-slate-700"
             } 
             group-hover:bg-[#1c7dd8] group-hover:text-white`}
-                xmlns="http://www.w3.org/2000/svg"
-                width={38}
-                height={38}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  fillRule="evenodd"
-                  d="M7.5 9V6.5a4.5 4.5 0 0 1 9 0V9H19a1 1 0 0 1 1 .999V21a.997.997 0 0 1-1 1H5a1 1 0 0 1-1-.999V10a.997.997 0 0 1 1-1zM9 9h6V6.5a3 3 0 0 0-6 0zm2.4 6.875V18h1.2v-2.125a1.5 1.5 0 1 0-1.2 0"
-                ></path>
-              </svg>
-              <span className="transition-colors duration-300 group-hover:text-slate-900">
-                Admin
-              </span>
-            </>
-          )}
-        </NavLink>
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={38}
+                        height={38}
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          fillRule="evenodd"
+                          d="M7.5 9V6.5a4.5 4.5 0 0 1 9 0V9H19a1 1 0 0 1 1 .999V21a.997.997 0 0 1-1 1H5a1 1 0 0 1-1-.999V10a.997.997 0 0 1 1-1zM9 9h6V6.5a3 3 0 0 0-6 0zm2.4 6.875V18h1.2v-2.125a1.5 1.5 0 1 0-1.2 0"
+                        ></path>
+                      </svg>
+                      <span className="transition-colors duration-300 group-hover:text-slate-900">
+                        Admin
+                      </span>
+                    </>
+                  )}
+                </NavLink>
+              </>
+            ) : (
+              <>
+                <NavLink
+                  to="/auth/login"
+                  className={({ isActive }) =>
+                    `flex items-center gap-4 group font-medium tracking-wide ${
+                      isActive ? "text-slate-700" : "text-slate-500"
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      <svg
+                        className={`rounded-full p-2 transition-colors duration-300 
+            ${
+              isActive
+                ? "bg-[#689F1F] text-white"
+                : "bg-slate-200 text-slate-700"
+            } 
+            group-hover:bg-[#1c7dd8] group-hover:text-white`}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={38}
+                        height={38}
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          fillRule="evenodd"
+                          d="M7.5 9V6.5a4.5 4.5 0 0 1 9 0V9H19a1 1 0 0 1 1 .999V21a.997.997 0 0 1-1 1H5a1 1 0 0 1-1-.999V10a.997.997 0 0 1 1-1zM9 9h6V6.5a3 3 0 0 0-6 0zm2.4 6.875V18h1.2v-2.125a1.5 1.5 0 1 0-1.2 0"
+                        ></path>
+                      </svg>
+                      <span className="transition-colors duration-300 group-hover:text-slate-900">
+                        Ingredients
+                      </span>
+                    </>
+                  )}
+                </NavLink>
+                <NavLink
+                  to="/auth/login"
+                  className={({ isActive }) =>
+                    `flex items-center gap-4 group font-medium tracking-wide ${
+                      isActive ? "text-slate-700" : "text-slate-500"
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      <svg
+                        className={`rounded-full p-2 transition-colors duration-300 
+            ${
+              isActive
+                ? "bg-[#689F1F] text-white"
+                : "bg-slate-200 text-slate-700"
+            } 
+            group-hover:bg-[#1c7dd8] group-hover:text-white`}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={38}
+                        height={38}
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          fillRule="evenodd"
+                          d="M7.5 9V6.5a4.5 4.5 0 0 1 9 0V9H19a1 1 0 0 1 1 .999V21a.997.997 0 0 1-1 1H5a1 1 0 0 1-1-.999V10a.997.997 0 0 1 1-1zM9 9h6V6.5a3 3 0 0 0-6 0zm2.4 6.875V18h1.2v-2.125a1.5 1.5 0 1 0-1.2 0"
+                        ></path>
+                      </svg>
+                      <span className="transition-colors duration-300 group-hover:text-slate-900">
+                        New Recipe
+                      </span>
+                    </>
+                  )}
+                </NavLink>
+                <button onClick={() => authContext.logout()}>Logout</button>
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

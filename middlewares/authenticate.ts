@@ -22,7 +22,7 @@ export const authnenticate = (
       role: string;
     };
 
-    (req as any).user = payload;
+    req.user = payload
 
     next();
   } catch (error) {

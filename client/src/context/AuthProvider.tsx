@@ -18,33 +18,33 @@ export default function AuthProvider({
   const navigate = useNavigate();
 
   const [user, setUser] = useState<User | null>(null);
-  const [recipes, setRecipes] = useState<Recipes | null>(null)
+  const [recipes, setRecipes] = useState<Recipes | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // axiosClient
-    //   .get("/user/getProfile")
-    //   .then((response) => {
-    //     setUser(response.data);
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     setUser(null);
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
+    axiosClient
+      .get("/user/getUserProfile")
+      .then((response) => {
+        setUser(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setUser(null);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
 
-        axiosClient
-    .get("/recipe")
-    .then((response) => {
-      setRecipes(response.data);
-      // console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    axiosClient
+      .get("/recipe")
+      .then((response) => {
+        setRecipes(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const login = async (data: LoginData) => {
@@ -67,6 +67,7 @@ export default function AuthProvider({
       .post("/user/logout")
       .then(() => {
         console.log("Logged out!");
+        setUser(null);
         navigate("/");
       })
       .catch((error) => {

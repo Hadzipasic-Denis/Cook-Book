@@ -72,3 +72,27 @@ export const login = asyncWrapper(
       .json(payload);
   }
 );
+
+export const logout = asyncWrapper(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    res
+      .cookie("access_token", "", { httpOnly: true, maxAge: 0 })
+      .json({ message: "Logged out!" });
+  }
+);
+
+export const getProfile = asyncWrapper(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    if (!req.user) {
+      const error: CustomError = new Error("Unauthorized!") as CustomError;
+      error.statusCode = 401;
+      return next(error);
+    }
+
+    const { id } = req.user;
+
+    const profile = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+
+    res.status(200).json({ profile: profile.rows[0] });
+  }
+);
