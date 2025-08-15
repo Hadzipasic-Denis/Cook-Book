@@ -18,7 +18,7 @@ function App() {
         <Route path="/auth/login" element={<Login />} />
 
         <Route path="/" element={<Protected />}>
-          <Route path="/createRecipe" element={<RecipeForm />} />
+          <Route path="/createNewRecipe" element={<RecipeForm />} />
         </Route>
       </Routes>
     </>

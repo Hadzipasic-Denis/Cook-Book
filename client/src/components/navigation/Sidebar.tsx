@@ -209,7 +209,7 @@ export default function Sidebar() {
                 </NavLink>
               </>
             ) : (
-              <>
+              <div className="flex flex-col gap-2">
                 <NavLink
                   to="/auth/login"
                   className={({ isActive }) =>
@@ -231,14 +231,13 @@ export default function Sidebar() {
                         xmlns="http://www.w3.org/2000/svg"
                         width={38}
                         height={38}
-                        viewBox="0 0 24 24"
                       >
                         <path
                           fill="currentColor"
-                          fillRule="evenodd"
-                          d="M7.5 9V6.5a4.5 4.5 0 0 1 9 0V9H19a1 1 0 0 1 1 .999V21a.997.997 0 0 1-1 1H5a1 1 0 0 1-1-.999V10a.997.997 0 0 1 1-1zM9 9h6V6.5a3 3 0 0 0-6 0zm2.4 6.875V18h1.2v-2.125a1.5 1.5 0 1 0-1.2 0"
-                        ></path>
+                          d="m16.88 4l2.15 2.1l-5.53 4.4l-1-1L16.87 4zm0-2a2 2 0 0 0-1.55.72L9.8 9.65l3.54 3.54l6.94-5.52c.9-.76.97-2.13.13-2.97L18.3 2.59c-.4-.4-.91-.59-1.42-.59M9.1 10.36l-.71.71a1.02 1.02 0 0 0 0 1.43l2.11 2.1c.21.2.46.29.72.29s.51-.09.71-.29l.7-.7zM6 15c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1m3 1c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1m-5 2c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1m3 1c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1"
+                        />
                       </svg>
+
                       <span className="transition-colors duration-300 group-hover:text-slate-900">
                         Ingredients
                       </span>
@@ -246,7 +245,7 @@ export default function Sidebar() {
                   )}
                 </NavLink>
                 <NavLink
-                  to="/auth/login"
+                  to="/createNewRecipe"
                   className={({ isActive }) =>
                     `flex items-center gap-4 group font-medium tracking-wide ${
                       isActive ? "text-slate-700" : "text-slate-500"
@@ -268,20 +267,52 @@ export default function Sidebar() {
                         height={38}
                         viewBox="0 0 24 24"
                       >
-                        <path
-                          fill="currentColor"
-                          fillRule="evenodd"
-                          d="M7.5 9V6.5a4.5 4.5 0 0 1 9 0V9H19a1 1 0 0 1 1 .999V21a.997.997 0 0 1-1 1H5a1 1 0 0 1-1-.999V10a.997.997 0 0 1 1-1zM9 9h6V6.5a3 3 0 0 0-6 0zm2.4 6.875V18h1.2v-2.125a1.5 1.5 0 1 0-1.2 0"
-                        ></path>
+                        <g
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.5"
+                        >
+                          <path d="M21 16.929V10c0-3.771 0-5.657-1.172-6.828S16.771 2 13 2h-1C8.229 2 6.343 2 5.172 3.172S4 6.229 4 10v9.5" />
+                          <path d="M21 17H6.5a2.5 2.5 0 0 0 0 5H21" />
+                          <path d="M21 22a2.5 2.5 0 0 1 0-5M14.388 6.85a1.97 1.97 0 0 1 1.112-.341c1.105 0 2 .903 2 2.017c0 1.097-.904 2.014-2 2.014v.96c0 .943 0 1.414-.293 1.707s-.764.293-1.707.293h-2c-.943 0-1.414 0-1.707-.293S9.5 12.443 9.5 11.5v-.835c-1.168 0-2-.87-2-2.139c0-1.114.895-2.017 2-2.017c.412 0 .794.125 1.112.34A2 2 0 0 1 12.5 5.5c.872 0 1.614.563 1.888 1.35m0 0q.11.314.112.668" />
+                        </g>
                       </svg>
                       <span className="transition-colors duration-300 group-hover:text-slate-900">
-                        New Recipe
+                        New recipe
                       </span>
                     </>
                   )}
                 </NavLink>
-                <button onClick={() => authContext.logout()}>Logout</button>
-              </>
+
+                <button
+                  onClick={() => authContext.logout()}
+                  className="flex items-center gap-4 group font-medium tracking-wide text-slate-500 hover:text-slate-700"
+                >
+                  <svg
+                    className="rounded-full p-2 transition-colors duration-300 
+      bg-slate-200 text-slate-700 
+      group-hover:bg-[#1c7dd8] group-hover:text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={38}
+                    height={38}
+                    viewBox="0 0 26 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M14.945 1.25c-1.367 0-2.47 0-3.337.117c-.9.12-1.658.38-2.26.981c-.524.525-.79 1.17-.929 1.928c-.135.737-.161 1.638-.167 2.72a.75.75 0 0 0 1.5.008c.006-1.093.034-1.868.142-2.457c.105-.566.272-.895.515-1.138c.277-.277.666-.457 1.4-.556c.755-.101 1.756-.103 3.191-.103h1c1.436 0 2.437.002 3.192.103c.734.099 1.122.28 1.4.556c.276.277.456.665.555 1.4c.102.754.103 1.756.103 3.191v8c0 1.435-.001 2.436-.103 3.192c-.099.734-.279 1.122-.556 1.399s-.665.457-1.399.556c-.755.101-1.756.103-3.192.103h-1c-1.435 0-2.436-.002-3.192-.103c-.733-.099-1.122-.28-1.399-.556c-.243-.244-.41-.572-.515-1.138c-.108-.589-.136-1.364-.142-2.457a.75.75 0 1 0-1.5.008c.006 1.082.032 1.983.167 2.72c.14.758.405 1.403.93 1.928c.601.602 1.36.86 2.26.982c.866.116 1.969.116 3.336.116h1.11c1.368 0 2.47 0 3.337-.116c.9-.122 1.658-.38 2.26-.982s.86-1.36.982-2.26c.116-.867.116-1.97.116-3.337v-8.11c0-1.367 0-2.47-.116-3.337c-.121-.9-.38-1.658-.982-2.26s-1.36-.86-2.26-.981c-.867-.117-1.97-.117-3.337-.117z"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M15 11.25a.75.75 0 0 1 0 1.5H4.027l1.961 1.68a.75.75 0 1 1-.976 1.14l-3.5-3a.75.75 0 0 1 0-1.14l3.5-3a.75.75 0 1 1 .976 1.14l-1.96 1.68z"
+                    />
+                  </svg>
+                  <span className="transition-colors duration-300 group-hover:text-slate-900">
+                    Logout
+                  </span>
+                </button>
+              </div>
             )}
           </>
         )}

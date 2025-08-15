@@ -1,5 +1,13 @@
+import Sidebar from "../navigation/Sidebar";
+
 export default function RecipeForm() {
     return(
-        <p>Protected</p>
+            <div className="flex w-full">
+              <Sidebar />
+              <div className="w-full bg-slate-50">
+              <p>Form</p>
+        
+              </div>
+            </div>
     )
 }
