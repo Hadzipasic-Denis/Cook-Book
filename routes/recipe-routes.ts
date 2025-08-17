@@ -4,6 +4,6 @@ import { createRecipe, getAllRecipes, upload } from "../controllers/recipe-contr
 const recipeRouter = express.Router()
 
 recipeRouter.route("/").get(getAllRecipes)
-recipeRouter.route("/create").post(upload.single("image"), createRecipe)
+recipeRouter.route("/createNewRecipe").post(upload.single("image"), createRecipe)
 
 export default recipeRouter

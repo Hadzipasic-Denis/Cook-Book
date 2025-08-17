@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type {
   AuthContextType,
   LoginData,
+  Recipe,
   Recipes,
   User,
 } from "../../../client/types/types";
@@ -75,8 +76,23 @@ export default function AuthProvider({
       });
   };
 
+    const createRecipe = async (data: Recipe) => {
+    axiosClient
+      .post("/recipe/createNewRecipe", data)
+      .then((response) => {
+        setUser(response.data);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
   return (
-    <AuthContext.Provider value={{ login, logout, user, recipes, isLoading }}>
+    <AuthContext.Provider value={{ login, logout, createRecipe, user, recipes, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -31,13 +31,16 @@ export const createRecipe = asyncWrapper(
       steps,
       servings,
       tags,
+      shortDescription,
+      category,
+      kcal,
     } = req.body;
 
     const image = req.file?.filename;
 
     const recipeResult = await pool.query(
-      `INSERT INTO recipes (title, ingredients, prep_duration, cook_duration, steps, image, servings, tags)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      `INSERT INTO recipes (title, ingredients, prep_duration, cook_duration, steps, image, servings, tags, short_description, category, kcal)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
        RETURNING *`,
       [
         title,
@@ -48,6 +51,9 @@ export const createRecipe = asyncWrapper(
         image,
         servings,
         tags,
+        shortDescription,
+        category,
+        kcal,
       ]
     );
 

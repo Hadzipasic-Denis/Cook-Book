@@ -20,6 +20,9 @@ export interface Recipe {
   steps: string[];
   tags: string[];
   image: string | null;
+  category: string,
+  short_description: string,
+  kcal: number
 }
 
 export type Recipes = Recipe[]
@@ -32,6 +35,7 @@ export interface LoginData {
 export interface AuthContextType {
   login: (data: LoginData) => void;
   logout: () => void;
+  createRecipe: (data: Recipe) => void;
   recipes: Recipes | null;
   user: User | null;
   isLoading: boolean;
