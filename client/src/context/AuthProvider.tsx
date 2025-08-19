@@ -21,6 +21,13 @@ export default function AuthProvider({
   const [user, setUser] = useState<User | null>(null);
   const [recipes, setRecipes] = useState<Recipes | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [filters, setFilters] = useState({
+    category: "",
+    difficulty: "",
+    max_kcal: "",
+    max_cook_duration: "",
+    title: "",
+  });
 
   useEffect(() => {
     axiosClient
@@ -38,15 +45,10 @@ export default function AuthProvider({
       });
 
     axiosClient
-      .get("/recipe")
-      .then((response) => {
-        setRecipes(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+      .get("/recipe", { params: filters })
+      .then((response) => setRecipes(response.data))
+      .catch((error) => console.log(error));
+  }, [filters]);
 
   const login = async (data: LoginData) => {
     axiosClient
@@ -88,7 +90,7 @@ export default function AuthProvider({
     }
 
     if (data.image) {
-      formData.append("image", data.image); 
+      formData.append("image", data.image);
     }
 
     await axiosClient
@@ -109,7 +111,16 @@ export default function AuthProvider({
 
   return (
     <AuthContext.Provider
-      value={{ login, logout, createRecipe, user, recipes, isLoading }}
+      value={{
+        login,
+        logout,
+        createRecipe,
+        user,
+        recipes,
+        isLoading,
+        filters,
+        setFilters,
+      }}
     >
       {children}
     </AuthContext.Provider>

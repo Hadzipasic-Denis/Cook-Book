@@ -55,11 +55,43 @@ export const createRecipe = asyncWrapper(
 
 export const getAllRecipes = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
-    const recipes = await pool.query(`
-  SELECT 
-  * FROM recipes
-    `);
+    const { category, difficulty, max_kcal, max_cook_duration, title } = req.query;
 
+    let query = `SELECT * FROM recipes`;
+    const conditions: string[] = [];
+    const values: any[] = [];
+
+    if (category) {
+      values.push(category);
+      conditions.push(`category ILIKE $${values.length}`);
+    }
+
+    if (difficulty) {
+      values.push(difficulty);
+      conditions.push(`difficulty = $${values.length}`);
+    }
+
+    if (max_kcal) {
+      values.push(Number(max_kcal));
+      conditions.push(`kcal <= $${values.length}`);
+    }
+
+    if (max_cook_duration) {
+      values.push(Number(max_cook_duration));
+      conditions.push(`cook_duration <= $${values.length}`);
+    }
+
+    if (title) {
+      values.push(`%${title}%`);
+      conditions.push(`title ILIKE $${values.length}`);
+    }
+
+    if (conditions.length > 0) {
+      query += ` WHERE ` + conditions.join(" AND ");
+    }
+
+    const recipes = await pool.query(query, values);
     res.json(recipes.rows);
   }
 );
+

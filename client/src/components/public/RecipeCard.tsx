@@ -10,8 +10,6 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
     ? recipe.tags
     : JSON.parse(recipe.tags);
 
-  const rating = [1, 2, 3, 4, 5];
-
   return (
     <div className="group relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
       <div className="relative overflow-hidden h-80">
@@ -64,25 +62,48 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
           </div>
         </div>
         <div className="mt-3 flex items-center">
-          <div className="flex text-yellow-400">
-            {rating.map((r, index) => {
+          <div className="flex items-center gap-1">
+            {[...Array(5)].map((_, i) => {
+              const full = i + 1 <= Math.floor(recipe.rating);
+              const half = !full && i < recipe.rating;
               return (
                 <svg
-                  key={index}
+                  key={i}
                   xmlns="http://www.w3.org/2000/svg"
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
+                  width={22}
+                  height={22}
+                  viewBox="0 0 24 24"
+                  className="text-yellow-400"
                 >
-                  <path
-                    fill="currentColor"
-                    d="M9.104 2.9a1 1 0 0 1 1.794 0l1.93 3.91l4.317.628a1 1 0 0 1 .554 1.706l-3.124 3.044l.738 4.3a1 1 0 0 1-1.451 1.054l-3.86-2.03l-3.862 2.03a1 1 0 0 1-1.45-1.055l.737-4.299l-3.124-3.044a1 1 0 0 1 .554-1.706l4.317-.627z"
-                  ></path>
+                  <defs>
+                    <linearGradient
+                      id={`half-grad-${i}`}
+                      x1="0"
+                      x2="100%"
+                      y1="0"
+                      y2="0"
+                    >
+                      <stop offset="50%" stopColor="gold" />
+                      <stop offset="50%" stopColor="transparent" />
+                    </linearGradient>
+                  </defs>
+
+                  <polygon
+                    points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.8 5.5 21 7 14 2 9.3 9 8.5 12 2"
+                    fill={
+                      full ? "gold" : half ? `url(#half-grad-${i})` : "none"
+                    }
+                    stroke="gold"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               );
             })}
           </div>
-          <span className="text-gray-500 text-xs ml-2">(89 reviews)</span>
+
+          <span className="text-gray-500 text-xs ml-2">({recipe.rating})</span>
         </div>
         <div className="flex mt-4 gap-2">
           {tagsArray.map((tag: string, index: number) => (

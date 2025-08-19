@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface User {
   id: number;
   role: string;
@@ -23,7 +25,8 @@ export interface Recipe {
   category: string,
   short_description: string,
   kcal: number,
-  difficulty: string
+  difficulty: string,
+  rating: number
 }
 
 export type Recipes = Recipe[]
@@ -40,4 +43,18 @@ export interface AuthContextType {
   recipes: Recipes | null;
   user: User | null;
   isLoading: boolean;
+   filters: {
+    category: string;
+    difficulty: string;
+    max_kcal: string;
+    max_cook_duration: string;
+    title: string;
+  };
+  setFilters: Dispatch<SetStateAction<{
+    category: string;
+    difficulty: string;
+    max_kcal: string;
+    max_cook_duration: string;
+    title: string;
+  }>>;
 }

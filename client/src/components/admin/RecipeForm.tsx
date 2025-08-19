@@ -38,6 +38,7 @@ export default function RecipeForm() {
     short_description: string;
     kcal: number;
     difficulty: string;
+    rating: number
   };
 
   const { fields, append, remove } = useFieldArray({
