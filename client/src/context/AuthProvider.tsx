@@ -76,11 +76,27 @@ export default function AuthProvider({
       });
   };
 
-    const createRecipe = async (data: Recipe) => {
-    axiosClient
-      .post("/recipe/createNewRecipe", data)
-      .then((response) => {
-        setUser(response.data);
+  const createRecipe = async (data: Recipe) => {
+    const formData = new FormData();
+
+    for (const key in data) {
+      if (key === "ingredients" || key === "steps" || key === "tags") {
+        formData.append(key, JSON.stringify(data[key as keyof Recipe]));
+      } else if (key !== "image") {
+        formData.append(key, data[key as keyof Recipe] as any);
+      }
+    }
+
+    if (data.image) {
+      formData.append("image", data.image); // 👈 file
+    }
+
+    await axiosClient
+      .post("/recipe/createNewRecipe", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then(() => {
+        console.log("Upload successful!");
         navigate("/");
       })
       .catch((error) => {
@@ -92,7 +108,9 @@ export default function AuthProvider({
   };
 
   return (
-    <AuthContext.Provider value={{ login, logout, createRecipe, user, recipes, isLoading }}>
+    <AuthContext.Provider
+      value={{ login, logout, createRecipe, user, recipes, isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

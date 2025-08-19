@@ -32,9 +32,9 @@ export default function RecipeForm() {
     cook_duration: number;
     prep_duration: number;
     servings: number;
-    steps: string[];
     tags: string[];
-    image: string | null;
+    steps: string[];
+    image: File | null;
     short_description: string;
     kcal: number;
   };
@@ -313,6 +313,19 @@ export default function RecipeForm() {
                       </div>
                     ))}
                   </div>
+                </div>
+
+                <div className="w-full mb-6">
+                  <label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white">
+                    Upload Image
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      setValue("image", e.target.files?.[0] || null)
+                    }
+                  />
                 </div>
               </div>
               <div className="my-6 text-center">

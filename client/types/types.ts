@@ -19,7 +19,7 @@ export interface Recipe {
   ingredients: Ingredient[];
   steps: string[];
   tags: string[];
-  image: string | null;
+  image: File | null;
   category: string,
   short_description: string,
   kcal: number
