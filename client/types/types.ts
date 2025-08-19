@@ -19,10 +19,11 @@ export interface Recipe {
   ingredients: Ingredient[];
   steps: string[];
   tags: string[];
-  image: File | null;
+  image: File | string |null;
   category: string,
   short_description: string,
-  kcal: number
+  kcal: number,
+  difficulty: string
 }
 
 export type Recipes = Recipe[]

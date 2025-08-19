@@ -10,7 +10,7 @@ export default function RecipeForm() {
   const [tags, setTags] = useState<string[]>([""]);
   const [steps, setSteps] = useState<string[]>([""]);
 
-  const { register, control, setValue, handleSubmit } = useForm<Inputs>({
+  const { register, control, setValue, handleSubmit, watch } = useForm<Inputs>({
     defaultValues: {
       title: "",
       ingredients: [{ name: "", unit: "", ammount: 0 }],
@@ -37,6 +37,7 @@ export default function RecipeForm() {
     image: File | null;
     short_description: string;
     kcal: number;
+    difficulty: string;
   };
 
   const { fields, append, remove } = useFieldArray({
@@ -64,7 +65,7 @@ export default function RecipeForm() {
     <div className="flex w-full">
       <Sidebar />
       <div className="w-full bg-slate-50">
-        <div className="mx-auto flex justify-center px-6 py-12">
+        <div className="flex justify-center py-12">
           <div className="drop-shadow-2xl max-h-fit min-w-[850px] max-w-[850px] bg-white dark:bg-gray-700 p-4 rounded-xl">
             <h3 className="py-4 text-2xl text-center text-gray-800 dark:text-white">
               Create a new recipe!
@@ -74,8 +75,8 @@ export default function RecipeForm() {
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col px-2 pt-4 pb-4 mb-4 bg-white dark:bg-gray-800 rounded lg:px-8"
             >
-              <div className="flex justify-between">
-                <div className="w-[40%] mb-6">
+              <div className="flex justify-between mb-6">
+                <div className="w-[40%] ">
                   <label
                     className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
                     htmlFor="title"
@@ -90,7 +91,7 @@ export default function RecipeForm() {
                     {...register("title", { required: true })}
                   />
                 </div>
-                <div className="w-[40%] mb-6">
+                <div className="w-[40%] ">
                   <label
                     className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
                     htmlFor="category"
@@ -104,6 +105,23 @@ export default function RecipeForm() {
                     placeholder="Enter a category"
                     {...register("category", { required: true })}
                   />
+                </div>
+
+                <div className="w-[15%]">
+                  <label
+                    className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
+                    htmlFor="difficulty"
+                  >
+                    Difficulty
+                  </label>
+                  <select
+                    {...register("difficulty", { required: true })}
+                    className="w-full px-3 py-2 text-sm text-gray-700 dark:text-white border border-gray-300 rounded shadow appearance-none focus:outline-none focus:border-[#689F1F] focus:ring-1 focus:ring-[#689F1F] bg-white dark:bg-gray-700 cursor-pointer"
+                  >
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                  </select>
                 </div>
               </div>
               <div className="flex">
@@ -122,8 +140,8 @@ export default function RecipeForm() {
                   />
                 </div>
               </div>
-              <div className="flex justify-between">
-                <div className="w-[15%] mb-6">
+              <div className="flex justify-between mb-6">
+                <div className="w-[15%]">
                   <label
                     className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
                     htmlFor="prep_duration"
@@ -138,7 +156,7 @@ export default function RecipeForm() {
                     {...register("prep_duration", { required: true })}
                   />
                 </div>
-                <div className="w-[15%] mb-6">
+                <div className="w-[15%]">
                   <label
                     className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
                     htmlFor="cook_duration"
@@ -153,7 +171,7 @@ export default function RecipeForm() {
                     {...register("cook_duration", { required: true })}
                   />
                 </div>
-                <div className="w-[15%] mb-6">
+                <div className="w-[15%]">
                   <label
                     className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
                     htmlFor="kcal"
@@ -168,7 +186,7 @@ export default function RecipeForm() {
                     {...register("kcal", { required: true })}
                   />
                 </div>
-                <div className="w-[15%] mb-6">
+                <div className="w-[15%]">
                   <label
                     className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
                     htmlFor="servings"
@@ -268,7 +286,7 @@ export default function RecipeForm() {
                 ))}
                 <button
                   type="button"
-                  className="mt-2 mb-6 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                  className="mt-2 mb-6 px-3 py-1 bg-[#689F1F] text-white rounded hover:bg-lime-800"
                   onClick={() => append({ name: "", unit: "", ammount: 0 })}
                 >
                   + Add Ingredient
@@ -319,13 +337,17 @@ export default function RecipeForm() {
                   <label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white">
                     Upload Image
                   </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) =>
-                      setValue("image", e.target.files?.[0] || null)
-                    }
-                  />
+                  <label className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-[#689F1F] rounded-full cursor-pointer hover:bg-lime-800 dark:bg-green-700 dark:hover:bg-green-800 transition-colors">
+                    {watch("image") ? watch("image")?.name : "Choose a file"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) =>
+                        setValue("image", e.target.files?.[0] || null)
+                      }
+                    />
+                  </label>
                 </div>
               </div>
               <div className="my-6 text-center">

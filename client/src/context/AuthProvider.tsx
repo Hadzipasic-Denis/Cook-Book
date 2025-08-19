@@ -88,7 +88,7 @@ export default function AuthProvider({
     }
 
     if (data.image) {
-      formData.append("image", data.image); // 👈 file
+      formData.append("image", data.image); 
     }
 
     await axiosClient

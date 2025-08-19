@@ -61,8 +61,6 @@ export const login = asyncWrapper(
 
     const payload = { email: user.email, role: user.role, id: user.id };
 
-    console.log(payload);
-
     const token = jwt.sign(payload, process.env.JWT_SECRET!, {
       expiresIn: "480m",
     });

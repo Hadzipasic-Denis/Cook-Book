@@ -3,9 +3,9 @@ import Home from "./components/public/Home";
 import Inspiration from "./components/public/Inspiration";
 import Plan from "./components/public/Plan";
 import Login from "./components/public/Login";
-import Recipes from "./components/public/Test";
 import Protected from "./components/admin/Protected";
 import RecipeForm from "./components/admin/RecipeForm";
+import Recipes from "./components/public/Recipes";
 
 function App() {
   return (
