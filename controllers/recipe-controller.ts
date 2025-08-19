@@ -46,7 +46,7 @@ export const createRecipe = asyncWrapper(
         short_description,
         category,
         kcal,
-        difficulty
+        difficulty,
       ]
     );
     res.status(201).json(recipeResult.rows[0]);
@@ -55,7 +55,8 @@ export const createRecipe = asyncWrapper(
 
 export const getAllRecipes = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
-    const { category, difficulty, max_kcal, max_cook_duration, title } = req.query;
+    const { category, difficulty, max_kcal, max_cook_duration, title } =
+      req.query;
 
     let query = `SELECT * FROM recipes`;
     const conditions: string[] = [];
@@ -95,3 +96,11 @@ export const getAllRecipes = asyncWrapper(
   }
 );
 
+export const recipesWithoutFilter = asyncWrapper(
+  async (req: Request, res: Response): Promise<void> => {
+    let query = `SELECT * FROM recipes`;
+
+    const recipes = await pool.query(query);
+    res.json(recipes.rows);
+  }
+);

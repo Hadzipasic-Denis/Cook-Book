@@ -41,6 +41,7 @@ export interface AuthContextType {
   logout: () => void;
   createRecipe: (data: Recipe) => void;
   recipes: Recipes | null;
+  recipesWithouthFilter: Recipes | null;
   user: User | null;
   isLoading: boolean;
    filters: {

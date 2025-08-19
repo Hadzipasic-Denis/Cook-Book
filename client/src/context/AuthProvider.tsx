@@ -20,6 +20,8 @@ export default function AuthProvider({
 
   const [user, setUser] = useState<User | null>(null);
   const [recipes, setRecipes] = useState<Recipes | null>(null);
+  const [recipesWithouthFilter, setRecipesWithouthFilter] =
+    useState<Recipes | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({
     category: "",
@@ -48,6 +50,20 @@ export default function AuthProvider({
       .get("/recipe", { params: filters })
       .then((response) => setRecipes(response.data))
       .catch((error) => console.log(error));
+
+    axiosClient
+      .get("/recipe/recipesWithouthFilter")
+      .then((response) => {
+        setRecipesWithouthFilter(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setRecipesWithouthFilter(null);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [filters]);
 
   const login = async (data: LoginData) => {
@@ -120,6 +136,7 @@ export default function AuthProvider({
         isLoading,
         filters,
         setFilters,
+        recipesWithouthFilter,
       }}
     >
       {children}
