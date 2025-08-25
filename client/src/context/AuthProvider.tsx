@@ -1,11 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type {
-  AuthContextType,
-  LoginData,
-  Recipe,
-  Recipes,
-  User,
+import {
+  type UnapprovedIngredients,
+  type AuthContextType,
+  type LoginData,
+  type Recipe,
+  type Recipes,
+  type User,
 } from "../../../client/types/types";
 import axiosClient from "../../axiosClient/axiosClient";
 
@@ -22,6 +23,8 @@ export default function AuthProvider({
   const [recipes, setRecipes] = useState<Recipes | null>(null);
   const [recipesWithouthFilter, setRecipesWithouthFilter] =
     useState<Recipes | null>(null);
+  const [unapprovedIngredients, setUnapprovedIngredients] =
+    useState<UnapprovedIngredients | null>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({
     category: "",
@@ -48,8 +51,22 @@ export default function AuthProvider({
 
     axiosClient
       .get("/recipe", { params: filters })
-      .then((response) => setRecipes(response.data))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        setRecipes(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axiosClient
+      .get("/ingredient/getAllUnapprovedIngredients")
+      .then((response) => {
+        setUnapprovedIngredients(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     axiosClient
       .get("/recipe/recipesWithouthFilter")
@@ -133,10 +150,11 @@ export default function AuthProvider({
         createRecipe,
         user,
         recipes,
+        recipesWithouthFilter,
+        unapprovedIngredients,
         isLoading,
         filters,
         setFilters,
-        recipesWithouthFilter,
       }}
     >
       {children}

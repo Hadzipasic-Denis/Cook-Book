@@ -9,10 +9,9 @@ export default function Recipes() {
   return (
     <div className="flex w-full">
       <Sidebar />
-      <div className="w-[80%] mx-auto mt-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-r from-blue-50 via-white to-gray-50 p-4 rounded-xl shadow-md mb-6 gap-4 sticky top-0 z-20">
-
-          <div className="flex flex-wrap gap-4">
+      <div className="mx-auto pt-6 px-10 max-h-[100vh] overflow-y-scroll">
+        <div className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-r from-blue-50 via-white to-green-50 p-4 rounded-xl shadow-md gap-4">
+          <div className="flex gap-4">
             <select
               value={authContext?.filters.difficulty}
               onChange={(e) =>
@@ -33,6 +32,7 @@ export default function Recipes() {
               type="number"
               placeholder="Max calories"
               value={authContext?.filters.max_kcal}
+              min={0}  
               onChange={(e) =>
                 authContext?.setFilters((prev) => ({
                   ...prev,
@@ -46,6 +46,7 @@ export default function Recipes() {
               type="number"
               placeholder="Max cook duration (min)"
               value={authContext?.filters.max_cook_duration || ""}
+              min={0}  
               onChange={(e) =>
                 authContext?.setFilters((prev) => ({
                   ...prev,
@@ -84,7 +85,6 @@ export default function Recipes() {
               }
               className="flex items-center gap-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
             >
-              {/* Simple refresh/reset icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={21}
@@ -120,7 +120,7 @@ export default function Recipes() {
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+        <div className="py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
           {authContext?.recipes?.map((recipe) => {
             return <RecipeCard key={recipe.id} recipe={recipe} />;
           })}

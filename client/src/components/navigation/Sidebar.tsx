@@ -211,7 +211,7 @@ export default function Sidebar() {
             ) : (
               <div className="flex flex-col gap-2">
                 <NavLink
-                  to="/auth/login"
+                  to="/approveIngredients"
                   className={({ isActive }) =>
                     `flex items-center gap-4 group font-medium tracking-wide ${
                       isActive ? "text-slate-700" : "text-slate-500"
@@ -270,9 +270,9 @@ export default function Sidebar() {
                         <g
                           fill="none"
                           stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
                         >
                           <path d="M21 16.929V10c0-3.771 0-5.657-1.172-6.828S16.771 2 13 2h-1C8.229 2 6.343 2 5.172 3.172S4 6.229 4 10v9.5" />
                           <path d="M21 17H6.5a2.5 2.5 0 0 0 0 5H21" />

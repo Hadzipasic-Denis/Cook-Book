@@ -12,24 +12,32 @@ export interface Ingredient {
   ammount: number;
 }
 
+export interface UnapprovedIngredient {
+  id: number;
+  name: string;
+  approval_status: string;
+}
+
+export type UnapprovedIngredients = UnapprovedIngredient[];
+
 export interface Recipe {
   id: number;
-  title: string,
+  title: string;
   cook_duration: number;
   prep_duration: number;
   servings: number;
   ingredients: Ingredient[];
   steps: string[];
   tags: string[];
-  image: File | string |null;
-  category: string,
-  short_description: string,
-  kcal: number,
-  difficulty: string,
-  rating: number
+  image: File | string | null;
+  category: string;
+  short_description: string;
+  kcal: number;
+  difficulty: string;
+  rating: number;
 }
 
-export type Recipes = Recipe[]
+export type Recipes = Recipe[];
 
 export interface LoginData {
   email: string;
@@ -43,19 +51,22 @@ export interface AuthContextType {
   recipes: Recipes | null;
   recipesWithouthFilter: Recipes | null;
   user: User | null;
+  unapprovedIngredients: UnapprovedIngredients | null; // <-- required
   isLoading: boolean;
-   filters: {
+  filters: {
     category: string;
     difficulty: string;
     max_kcal: string;
     max_cook_duration: string;
     title: string;
   };
-  setFilters: Dispatch<SetStateAction<{
-    category: string;
-    difficulty: string;
-    max_kcal: string;
-    max_cook_duration: string;
-    title: string;
-  }>>;
+  setFilters: Dispatch<
+    SetStateAction<{
+      category: string;
+      difficulty: string;
+      max_kcal: string;
+      max_cook_duration: string;
+      title: string;
+    }>
+  >;
 }
