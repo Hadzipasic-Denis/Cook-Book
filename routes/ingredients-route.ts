@@ -1,15 +1,17 @@
 import express from "express";
 import {
-  getAllUnapprovedIngredients,
+  approval,
+  getAllPendingApprovals,
   suggestIngredient,
 } from "../controllers/ingredients-controller";
-import { authnenticate } from "../middlewares/authenticate";
+import { authenticate } from "../middlewares/authenticate";
 
 const ingredientRouter = express.Router();
 
 ingredientRouter
-  .route("/getAllUnapprovedIngredients")
-  .get(authnenticate, getAllUnapprovedIngredients);
+  .route("/getAllPendingApprovals")
+  .get(authenticate, getAllPendingApprovals);
 ingredientRouter.route("/suggestIngredient").post(suggestIngredient);
+ingredientRouter.route("/approval/:id").put(authenticate, approval);
 
 export default ingredientRouter;

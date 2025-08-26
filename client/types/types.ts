@@ -12,13 +12,13 @@ export interface Ingredient {
   ammount: number;
 }
 
-export interface UnapprovedIngredient {
+export interface PendingApproval {
   id: number;
   name: string;
   approval_status: string;
 }
 
-export type UnapprovedIngredients = UnapprovedIngredient[];
+export type PendingApprovals = PendingApproval[];
 
 export interface Recipe {
   id: number;
@@ -51,7 +51,7 @@ export interface AuthContextType {
   recipes: Recipes | null;
   recipesWithouthFilter: Recipes | null;
   user: User | null;
-  unapprovedIngredients: UnapprovedIngredients | null; // <-- required
+  pendingApprovals: PendingApprovals | null; 
   isLoading: boolean;
   filters: {
     category: string;

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { CustomError } from "../types/CustomError";
 
-export const authnenticate = (
+export const authenticate = (
   req: Request,
   res: Response,
   next: NextFunction
