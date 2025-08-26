@@ -13,6 +13,6 @@ pool
     console.log("Successfully connected to the database");
     client.release();
   })
-  .catch((err) => console.error("Database connection error:", err.stack));
+  .catch((err) => console.log("Database connection error:", err.stack));
 
 export default pool;

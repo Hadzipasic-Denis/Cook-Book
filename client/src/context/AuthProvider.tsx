@@ -7,6 +7,7 @@ import {
   type Recipes,
   type User,
   type PendingApprovals,
+  type AllIngredients,
 } from "../../../client/types/types";
 import axiosClient from "../../axiosClient/axiosClient";
 
@@ -25,6 +26,9 @@ export default function AuthProvider({
     useState<Recipes | null>(null);
   const [pendingApprovals, setPendingApprovals] =
     useState<PendingApprovals | null>([]);
+  const [allIngredients, setAllIngredients] = useState<AllIngredients | null>(
+    []
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({
     category: "",
@@ -39,10 +43,10 @@ export default function AuthProvider({
       .get("/user/getUserProfile")
       .then((response) => {
         setUser(response.data);
-        console.log(response.data);
+        // // console.log(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setUser(null);
       })
       .finally(() => {
@@ -55,27 +59,37 @@ export default function AuthProvider({
         setRecipes(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
 
     axiosClient
       .get("/ingredient/getAllPendingApprovals")
       .then((response) => {
         setPendingApprovals(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
+      });
+
+    axiosClient
+      .get("/ingredient/getAllIngredients")
+      .then((response) => {
+        setAllIngredients(response.data);
+        // console.log(response.data);
+      })
+      .catch((error) => {
+        // console.log(error);
       });
 
     axiosClient
       .get("/recipe/recipesWithouthFilter")
       .then((response) => {
         setRecipesWithouthFilter(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setRecipesWithouthFilter(null);
       })
       .finally(() => {
@@ -91,7 +105,7 @@ export default function AuthProvider({
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       })
       .finally(() => {
         setIsLoading(false);
@@ -102,12 +116,12 @@ export default function AuthProvider({
     axiosClient
       .post("/user/logout")
       .then(() => {
-        console.log("Logged out!");
+        // console.log("Logged out!");
         setUser(null);
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -131,11 +145,11 @@ export default function AuthProvider({
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {
-        console.log("Upload successful!");
+        // console.log("Upload successful!");
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       })
       .finally(() => {
         setIsLoading(false);
@@ -155,6 +169,7 @@ export default function AuthProvider({
         isLoading,
         filters,
         setFilters,
+        allIngredients,
       }}
     >
       {children}

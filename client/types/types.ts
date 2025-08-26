@@ -20,6 +20,14 @@ export interface PendingApproval {
 
 export type PendingApprovals = PendingApproval[];
 
+export interface EveryIngredient {
+  id: number;
+  name: string;
+  approval_status: string;
+}
+
+export type AllIngredients = EveryIngredient[];
+
 export interface Recipe {
   id: number;
   title: string;
@@ -52,6 +60,7 @@ export interface AuthContextType {
   recipesWithouthFilter: Recipes | null;
   user: User | null;
   pendingApprovals: PendingApprovals | null; 
+  allIngredients: AllIngredients | null; 
   isLoading: boolean;
   filters: {
     category: string;
