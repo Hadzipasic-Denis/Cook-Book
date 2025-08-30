@@ -27,7 +27,7 @@ export default function Home() {
             loop={true}
             spaceBetween={30}
             autoplay={{
-              delay: 3000,
+              delay: 5000,
               disableOnInteraction: false,
             }}
             className="rounded-2xl shadow-lg overflow-hidden"
@@ -45,7 +45,7 @@ export default function Home() {
                   </p>
                   <button
                     onClick={() => navigate("/recipes")}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
+                    className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                   >
                     View All Recipes
                   </button>
@@ -72,7 +72,7 @@ export default function Home() {
                   </p>
                   <button
                     onClick={() => navigate("/inspiration")}
-                    className="px-6 py-3 bg-lime-700 text-white rounded-xl hover:bg-lime-600 transition"
+                    className="px-6 py-2 bg-lime-700 text-white rounded-md hover:bg-lime-600 transition"
                   >
                     Help Me Decide
                   </button>
@@ -96,8 +96,8 @@ export default function Home() {
                     save time, and make cooking easier.
                   </p>
                   <button
-                    onClick={() => navigate("/weekly-plan")}
-                    className="px-6 py-3 bg-orange-600 text-white rounded-xl hover:bg-orange-700 transition"
+                    onClick={() => navigate("/plan")}
+                    className="px-6 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition"
                   >
                     Create Weekly Plan
                   </button>

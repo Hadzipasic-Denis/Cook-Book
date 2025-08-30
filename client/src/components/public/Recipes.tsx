@@ -32,7 +32,7 @@ export default function Recipes() {
               type="number"
               placeholder="Max calories"
               value={authContext?.filters.max_kcal}
-              min={0}  
+              min={0}
               onChange={(e) =>
                 authContext?.setFilters((prev) => ({
                   ...prev,
@@ -46,7 +46,7 @@ export default function Recipes() {
               type="number"
               placeholder="Max cook duration (min)"
               value={authContext?.filters.max_cook_duration || ""}
-              min={0}  
+              min={0}
               onChange={(e) =>
                 authContext?.setFilters((prev) => ({
                   ...prev,

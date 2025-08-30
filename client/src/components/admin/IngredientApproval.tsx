@@ -2,18 +2,17 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import Sidebar from "../navigation/Sidebar";
 import axiosClient from "../../../axiosClient/axiosClient";
+import { toast } from "react-toastify";
 
 export default function IngredientApproval() {
   const authContext = useContext(AuthContext);
   const ingredients = authContext?.pendingApprovals ?? [];
 
-  console.log(authContext?.pendingApprovals);
-
   const handleApproval = (id: number, status: "yes" | "no") => {
     axiosClient
       .put(`/ingredient/approval/${id}`, { status })
       .then(() => {
-        console.log(`Updated approval for id: ${id} to ${status}`);
+        toast.success(`Submitted`)
       })
       .catch((error) => {
         console.log(error);
@@ -53,14 +52,14 @@ export default function IngredientApproval() {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-6 mt-4">
             {ingredients.map((ingredient) => (
               <div
                 key={ingredient.id}
                 className="w-[20%] bg-white shadow-md rounded-2xl p-6 flex flex-col justify-between"
               >
                 <div>
-                  <h2 className="text-lg font-semibold mb-2">
+                  <h2 className="text-lg text-center font-semibold mb-2">
                     {ingredient.name}
                   </h2>
                   <p className="text-sm text-gray-500">
@@ -70,19 +69,24 @@ export default function IngredientApproval() {
                     </span>
                   </p>
                 </div>
+
+                <div className="flex justify-center gap-2 mt-4">
+
+
                 <button
-                  className="px-4 py-1 rounded-xl bg-green-500 text-white hover:bg-green-600 transition"
+                  className="px-4 py-1 rounded-md bg-green-100 border-green-400 font-semibold border-[1.5px] text-green-800 hover:border-green-700 transition"
                   onClick={() => handleApproval(ingredient.id, "yes")}
                 >
                   Approve
                 </button>
 
                 <button
-                  className="px-4 py-1 rounded-xl bg-red-500 text-white hover:bg-red-600 transition"
+                  className="px-4 py-1 rounded-md bg-red-100 border-red-400 font-semibold border-[1.5px] text-red-800 hover:border-red-700 transition"
                   onClick={() => handleApproval(ingredient.id, "no")}
                 >
                   Reject
                 </button>
+              </div>
               </div>
             ))}
           </div>

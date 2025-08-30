@@ -96,6 +96,23 @@ export const getAllRecipes = asyncWrapper(
   }
 );
 
+export const getRecipeInformation = asyncWrapper(
+  async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+
+    const recipe = await pool.query("SELECT * FROM recipes WHERE id = $1", [
+      id,
+    ]);
+
+    if (recipe.rows.length === 0) {
+      res.status(404).json({ message: "Recipe not found" });
+      return;
+    }
+
+    res.json(recipe.rows[0]);
+  }
+);
+
 export const recipesWithoutFilter = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
     let query = `SELECT * FROM recipes`;
@@ -104,6 +121,3 @@ export const recipesWithoutFilter = asyncWrapper(
     res.json(recipes.rows);
   }
 );
-
-
-
