@@ -13,83 +13,122 @@ export const upload = multer({ storage });
 
 export const createRecipe = asyncWrapper(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const {
-      title,
-      ingredients,
-      prep_duration,
-      cook_duration,
-      steps,
-      servings,
-      tags,
-      short_description,
-      category,
-      kcal,
-      difficulty,
-    } = req.body;
-
-    const image = req.file?.path;
-
-    const recipeResult = await pool.query(
-      `INSERT INTO recipes 
-   (title, ingredients, prep_duration, cook_duration, steps, image, servings, tags, short_description, category, kcal, difficulty)
-   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-   RETURNING *`,
-      [
+    try {
+      const {
         title,
-        JSON.stringify(ingredients),
+        short_description,
         prep_duration,
         cook_duration,
-        JSON.stringify(steps),
-        image,
         servings,
-        JSON.stringify(tags),
-        short_description,
+        rating,
         category,
         kcal,
         difficulty,
-      ]
-    );
-    res.status(201).json(recipeResult.rows[0]);
+        steps,
+        tags,
+        ingredients,
+      } = req.body;
+
+      const imageUrl = (req.file as Express.Multer.File)?.path || null;
+
+      const recipeResult = await pool.query(
+        `INSERT INTO recipes 
+        (title, short_description, prep_duration, cook_duration, servings, rating, category, kcal, difficulty, image, steps, tags) 
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) 
+        RETURNING id`,
+        [
+          title,
+          short_description,
+          prep_duration,
+          cook_duration,
+          servings,
+          rating,
+          category,
+          kcal,
+          difficulty,
+          imageUrl,
+          steps ? JSON.parse(steps) : [],
+          tags ? JSON.parse(tags) : [],
+        ]
+      );
+
+      const recipeId = recipeResult.rows[0].id;
+
+      if (ingredients) {
+        const parsedIngredients = JSON.parse(ingredients);
+        for (const ing of parsedIngredients) {
+          await pool.query(
+            `INSERT INTO recipe_ingredients (recipe_id, amount, unit, name) VALUES ($1,$2,$3,$4)`,
+            [recipeId, ing.amount, ing.unit, ing.name]
+          );
+        }
+      }
+
+      res.status(201).json({ success: true, recipeId });
+    } catch (error) {
+      next(error);
+    }
   }
 );
+
+
 
 export const getAllRecipes = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
     const { category, difficulty, max_kcal, max_cook_duration, title } =
       req.query;
 
-    let query = `SELECT * FROM recipes`;
     const conditions: string[] = [];
     const values: any[] = [];
 
     if (category) {
       values.push(category);
-      conditions.push(`category ILIKE $${values.length}`);
+      conditions.push(`r.category ILIKE $${values.length}`);
     }
 
     if (difficulty) {
       values.push(difficulty);
-      conditions.push(`difficulty = $${values.length}`);
+      conditions.push(`r.difficulty = $${values.length}`);
     }
 
     if (max_kcal) {
       values.push(Number(max_kcal));
-      conditions.push(`kcal <= $${values.length}`);
+      conditions.push(`r.kcal <= $${values.length}`);
     }
 
     if (max_cook_duration) {
       values.push(Number(max_cook_duration));
-      conditions.push(`cook_duration <= $${values.length}`);
+      conditions.push(`r.cook_duration::int <= $${values.length}`);
     }
 
     if (title) {
       values.push(`%${title}%`);
-      conditions.push(`title ILIKE $${values.length}`);
+      conditions.push(`r.title ILIKE $${values.length}`);
     }
+
+    // base query with join + aggregation
+    let query = `
+      SELECT 
+        r.*,
+        COALESCE(
+          json_agg(
+            json_build_object(
+              'id', ri.id,
+              'amount', ri.amount,
+              'unit', ri.unit,
+              'name', ri.name
+            )
+          ) FILTER (WHERE ri.id IS NOT NULL), '[]'
+        ) AS ingredients
+      FROM recipes r
+      LEFT JOIN recipe_ingredients ri ON r.id = ri.recipe_id
+    `;
 
     if (conditions.length > 0) {
       query += ` WHERE ` + conditions.join(" AND ");
     }
+
+    query += ` GROUP BY r.id ORDER BY r.id DESC`;
 
     const recipes = await pool.query(query, values);
     res.json(recipes.rows);

@@ -6,9 +6,6 @@ interface RecipeCardProps {
 }
 
 export default function RecipeCard({ recipe }: RecipeCardProps) {
-  const tagsArray = Array.isArray(recipe.tags)
-    ? recipe.tags
-    : JSON.parse(recipe.tags);
 
   return (
     <div className="group relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
@@ -106,7 +103,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
           <span className="text-gray-500 text-xs ml-2">({recipe.rating})</span>
         </div>
         <div className="flex mt-4 gap-2">
-          {tagsArray.map((tag: string, index: number) => (
+          {recipe.tags.map((tag, index: number) => (
             <span
               key={index}
               className="rounded-md bg-sky-50 px-1.5 py-1 text-sm font-medium text-sky-700 ring-1 ring-inset ring-sky-300"

@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import Sidebar from "../navigation/Sidebar";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useContext } from "react";
@@ -68,23 +67,13 @@ export default function Login() {
               </div>
             </div>
 
-            <div className="my-6 text-center">
+            <div className="mt-6 text-center">
               <button
                 className={`w-6/12 px-4 py-2 rounded-full transition-all duration-300 ease-in-out focus:outline-none focus:shadow-outlinew bg-blue-500 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-900 font-medium text-white tracking-wider`}
                 type="submit"
               >
                 Login
               </button>
-            </div>
-
-            <hr className="mb-6 border-t" />
-            <div className="text-center">
-              <NavLink
-                className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
-                to={"/resetAccountPassword"}
-              >
-                Forgot password?
-              </NavLink>
             </div>
           </form>
         </div>

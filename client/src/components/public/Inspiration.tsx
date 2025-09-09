@@ -41,10 +41,9 @@ export default function Inspiration() {
       .post("/ingredient/filterRecipes", { ingredients })
       .then((response) => {
         setRecipes(response.data);
-        console.log(response.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        toast.error("Something went wrong!");
       })
       .finally(() => setLoading(false));
   };
@@ -66,13 +65,12 @@ export default function Inspiration() {
         name: suggestedIngredient.trim(),
       })
       .then(() => {
-        console.log("Suggested");
         setShowModal(false);
         setSuggestedIngredient("");
-        toast.success("Success! Your suggestion is waiting for approval!")
+        toast.success("Success! Your suggestion is waiting for approval!");
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        toast.error("Something went wrong!");
       })
       .finally(() => setLoading(false));
   };
@@ -83,7 +81,6 @@ export default function Inspiration() {
         <h1 className="text-2xl font-bold mb-6 text-center">
           Recipe Inspiration
         </h1>
-
         <div className="w-[50%] mx-auto">
           <div className="relative flex mx-auto gap-2 mb-4 ">
             <input
@@ -113,7 +110,6 @@ export default function Inspiration() {
               </ul>
             )}
           </div>
-
           <div className="flex flex-wrap gap-2 mb-2">
             {ingredients.map((ing) => (
               <span
@@ -140,7 +136,6 @@ export default function Inspiration() {
               </span>
             ))}
           </div>
-
           <p className="text-gray-500 text-center mb-6">
             Your ingredient does not show in the list?{" "}
             <span
@@ -152,7 +147,6 @@ export default function Inspiration() {
             us an ingredient and we will add it to the list!
           </p>
         </div>
-
         {showModal && (
           <div className="fixed inset-0 z-50 py-2 flex items-center justify-center bg-black/50">
             <div className="bg-white rounded-lg shadow-lg p-6 max-w-lg w-full relative">
@@ -213,11 +207,16 @@ export default function Inspiration() {
                  bg-gradient-to-r from-blue-200 via-green-300 to-orange-200"
           />
           {recipes.length === 0 && !loading ? (
-            <p className="text-gray-500 text-lg text-center">No recipes found yet</p>
+            <p className="text-gray-500 text-lg text-center">
+              No recipes found yet
+            </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recipes.map((recipe) => (
-                <div className="group relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+              {recipes.map((recipe, index: number) => (
+                <div
+                  key={index}
+                  className="group relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+                >
                   <div className="relative overflow-hidden h-80">
                     {recipe.image && (
                       <img
@@ -320,16 +319,14 @@ export default function Inspiration() {
                       </span>
                     </div>
                     <div className="flex mt-4 gap-2">
-                      {JSON.parse(recipe.tags).map(
-                        (tag: string, index: number) => (
-                          <span
-                            key={index}
-                            className="rounded-md bg-sky-50 px-1.5 py-1 text-sm font-medium text-sky-700 ring-1 ring-inset ring-sky-300"
-                          >
-                            {tag}
-                          </span>
-                        )
-                      )}
+                      {recipe.tags.map((tag: string, index: number) => (
+                        <span
+                          key={index}
+                          className="rounded-md bg-sky-50 px-1.5 py-1 text-sm font-medium text-sky-700 ring-1 ring-inset ring-sky-300"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                     <div className="flex flex-col gap-2 text-sm text-gray-600 mt-3 space-y-1">
                       <p className="flex gap-1 items-center">

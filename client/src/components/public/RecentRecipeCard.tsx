@@ -6,9 +6,19 @@ interface RecipeCardProps {
 }
 
 export default function RecentRecipeCard({ recipe }: RecipeCardProps) {
-  const tagsArray = Array.isArray(recipe.tags)
-    ? recipe.tags
-    : JSON.parse(recipe.tags);
+
+let tagsArray: string[] = [];
+
+try {
+  if (Array.isArray(recipe.tags)) {
+    tagsArray = recipe.tags;
+  } else {
+    const parsed = JSON.parse(recipe.tags);
+    tagsArray = Array.isArray(parsed) ? parsed : [];
+  }
+} catch (err) {
+  console.error("Error parsing tags:", recipe.tags, err);
+}
 
   return (
     <div className="group relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
@@ -26,7 +36,7 @@ export default function RecentRecipeCard({ recipe }: RecipeCardProps) {
         )}
         <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
           <NavLink
-            to={"/"}
+            to={`/recipes/${recipe.id}`}
             className="mx-auto w-[85px] bg-[#1c7dd8] text-white py-1 rounded-md font-medium hover:bg-[#689F1F] transition-colors duration-300 flex items-center justify-center gap-2"
           >
             View

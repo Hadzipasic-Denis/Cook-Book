@@ -55,7 +55,6 @@ export interface LoginData {
 export interface AuthContextType {
   login: (data: LoginData) => void;
   logout: () => void;
-  createRecipe: (data: Recipe) => void;
   recipes: Recipes | null;
   recipesWithouthFilter: Recipes | null;
   user: User | null;

@@ -22,8 +22,8 @@ export default function RecipeDetails() {
       .then((response) => {
         setRecipe(response.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        toast.error("Something went wrong!");
       });
   }, [id]);
 
@@ -47,7 +47,7 @@ export default function RecipeDetails() {
     };
     setSavedMeals(updatedPlan);
     localStorage.setItem("weeklyPlan", JSON.stringify(updatedPlan));
-    toast.success(`Recipe saved for ${mealType} on ${day}!`)
+    toast.success(`Recipe saved for ${mealType} on ${day}!`);
   };
 
   if (!recipe) return <p className="p-6">Loading...</p>;
@@ -194,15 +194,12 @@ export default function RecipeDetails() {
             <div>
               <h2 className="text-xl font-bold mb-3">Tags</h2>
               <div className="flex flex-wrap gap-2">
-                {(Array.isArray(recipe.tags)
-                  ? recipe.tags
-                  : JSON.parse(recipe.tags)
-                ).map((tag: string, i: number) => (
+                {recipe.tags.map((tag: string, i: number) => (
                   <span
                     key={i}
                     className="px-3 py-1 text-sm rounded-full bg-gradient-to-r from-sky-100 to-sky-200 text-sky-800 font-medium"
                   >
-                    #{tag}
+                    {tag}
                   </span>
                 ))}
               </div>
@@ -210,7 +207,9 @@ export default function RecipeDetails() {
           )}
 
           <div className="flex flex-col gap-2 mt-4">
-          <h2 className="text-xl font-bold mb-3">Add it to your weekly plan:</h2>
+            <h2 className="text-xl font-bold mb-3">
+              Add it to your weekly plan:
+            </h2>
 
             {[
               "monday",
@@ -222,8 +221,9 @@ export default function RecipeDetails() {
               "sunday",
             ].map((day) => (
               <div key={day} className="flex gap-3 items-center">
-
-                <span className="font-semibold capitalize w-20 mr-1">{day}:</span>
+                <span className="font-semibold capitalize w-20 mr-1">
+                  {day}:
+                </span>
                 {["breakfast", "lunch", "dinner"].map((meal) => (
                   <button
                     key={meal}
@@ -258,10 +258,7 @@ export default function RecipeDetails() {
 
           <h2 className="text-2xl font-bold mb-6">Instructions</h2>
           <ol className="space-y-6">
-            {(Array.isArray(recipe.steps)
-              ? recipe.steps
-              : JSON.parse(recipe.steps)
-            ).map((step: string, index: number) => (
+            {recipe.steps.map((step: string, index: number) => (
               <li
                 key={index}
                 className="flex gap-4 items-start bg-white p-4 rounded-lg shadow-sm border border-slate-200"
