@@ -9,10 +9,11 @@ import recipeRouter from "./routes/recipe-routes";
 import { errorHandler } from "./middlewares/errorHandler";
 import userRouter from "./routes/user-routes";
 import ingredientRouter from "./routes/ingredients-route";
+import path from "path"
 
 const app = express();
 const port = process.env.PORT || 3000;
-const path = require("path");
+
 
 app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
 app.use(cookieParser());
@@ -25,9 +26,8 @@ app.use("/recipe", recipeRouter);
 app.use("/user", userRouter);
 
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
-
 
 app.use(errorHandler);
 
