@@ -71,8 +71,6 @@ export const createRecipe = asyncWrapper(
   }
 );
 
-
-
 export const getAllRecipes = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
     const { category, difficulty, max_kcal, max_cook_duration, title } =
@@ -106,7 +104,6 @@ export const getAllRecipes = asyncWrapper(
       conditions.push(`r.title ILIKE $${values.length}`);
     }
 
-    // base query with join + aggregation
     let query = `
       SELECT 
         r.*,
@@ -139,16 +136,41 @@ export const getRecipeInformation = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
 
-    const recipe = await pool.query("SELECT * FROM recipes WHERE id = $1", [
-      id,
-    ]);
+    const recipe = await pool.query(
+      `
+      SELECT r.*, 
+             ri.id AS recipe_ingredient_id, 
+             ri.amount, 
+             ri.unit, 
+             ri.name
+      FROM recipes r
+      LEFT JOIN recipe_ingredients ri ON r.id = ri.recipe_id
+      WHERE r.id = $1
+      `,
+      [id]
+    );
 
     if (recipe.rows.length === 0) {
       res.status(404).json({ message: "Recipe not found" });
       return;
     }
 
-    res.json(recipe.rows[0]);
+    const { recipe_ingredient_id, amount, unit, name, ...recipeInfo } =
+      recipe.rows[0];
+
+    const ingredients = recipe.rows
+      .filter((row) => row.recipe_ingredient_id !== null)
+      .map((row) => ({
+        id: row.recipe_ingredient_id,
+        name: row.name,
+        amount: row.amount,
+        unit: row.unit,
+      }));
+
+    res.json({
+      ...recipeInfo,
+      ingredients,
+    });
   }
 );
 

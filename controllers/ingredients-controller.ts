@@ -70,7 +70,6 @@ export const filterRecipesByIngredients = asyncWrapper(
       return;
     }
 
-    // Build parameterized placeholders
     const placeholders = ingredients.map((_, i) => `$${i + 1}`).join(", ");
 
     const query = `
@@ -89,8 +88,14 @@ export const filterRecipesByIngredients = asyncWrapper(
       FROM recipes r
       JOIN recipe_ingredients ri ON r.id = ri.recipe_id
       JOIN ingredients i ON i.name = ri.name
-      WHERE i.approval_status = 'yes'
-      AND i.name IN (${placeholders})
+      WHERE r.id IN (
+        SELECT DISTINCT r2.id
+        FROM recipes r2
+        JOIN recipe_ingredients ri2 ON r2.id = ri2.recipe_id
+        JOIN ingredients i2 ON i2.name = ri2.name
+        WHERE i2.approval_status = 'yes'
+        AND i2.name IN (${placeholders})
+      )
       GROUP BY r.id
       ORDER BY r.id DESC
     `;
@@ -99,6 +104,7 @@ export const filterRecipesByIngredients = asyncWrapper(
     res.json(result.rows);
   }
 );
+
 
 
 
