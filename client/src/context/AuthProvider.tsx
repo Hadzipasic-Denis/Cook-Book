@@ -39,7 +39,7 @@ export default function AuthProvider({
 
   useEffect(() => {
     axiosClient
-      .get("/user/getUserProfile")
+      .get("/api//user/getUserProfile")
       .then((response) => {
         setUser(response.data);
       })
@@ -58,21 +58,21 @@ export default function AuthProvider({
       .catch(() => {});
 
     axiosClient
-      .get("/ingredient/getAllPendingApprovals")
+      .get("/api//ingredient/getAllPendingApprovals")
       .then((response) => {
         setPendingApprovals(response.data);
       })
       .catch(() => {});
 
     axiosClient
-      .get("/ingredient/getAllIngredients")
+      .get("/api//ingredient/getAllIngredients")
       .then((response) => {
         setAllIngredients(response.data);
       })
       .catch(() => {});
 
     axiosClient
-      .get("/recipe/recipesWithouthFilter")
+      .get("/api//recipe/recipesWithouthFilter")
       .then((response) => {
         setRecipesWithouthFilter(response.data);
       })
@@ -86,7 +86,7 @@ export default function AuthProvider({
 
   const login = async (data: LoginData) => {
     axiosClient
-      .post("/user/login", data)
+      .post("/api//user/login", data)
       .then((response) => {
         setUser(response.data);
         navigate("/");
@@ -99,7 +99,7 @@ export default function AuthProvider({
 
   const logout = async () => {
     axiosClient
-      .post("/user/logout")
+      .post("/api//user/logout")
       .then(() => {
         setUser(null);
         navigate("/");
