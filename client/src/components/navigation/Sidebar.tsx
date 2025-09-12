@@ -7,11 +7,11 @@ export default function Sidebar() {
   const authContext = useContext(AuthContext);
 
   return (
-    <div className="hidden md:flex flex-col gap-2 items-center w-[300px] max-w-[300px] min-h-[100vh] border-r shadow-xl">
+    <div className="hidden md:flex flex-col gap-2 items-center w-[320px] max-w-[320px] min-h-[100vh] border-r shadow-xl">
       <div>
         <img src={logo} width={140} alt="logo" />
       </div>
-      <div className="pl-6 w-[200px]">
+      <div className="pl-6 w-[220px]">
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -48,7 +48,7 @@ export default function Sidebar() {
         </NavLink>
       </div>
 
-      <div className="pl-6 w-[200px]">
+      <div className="pl-6 w-[220px]">
         <NavLink
           to="/recipes"
           className={({ isActive }) =>
@@ -85,7 +85,7 @@ export default function Sidebar() {
         </NavLink>
       </div>
 
-      <div className="pl-6 w-[200px]">
+      <div className="pl-6 w-[220px]">
         <NavLink
           to="/inspiration"
           className={({ isActive }) =>
@@ -126,7 +126,7 @@ export default function Sidebar() {
         </NavLink>
       </div>
 
-      <div className="pl-6 w-[200px]">
+      <div className="pl-6 w-[220px]">
         <NavLink
           to="/plan"
           className={({ isActive }) =>
@@ -167,7 +167,7 @@ export default function Sidebar() {
         </NavLink>
       </div>
 
-      <div className="pl-6 w-[200px]">
+      <div className="pl-6 w-[220px]">
         {!authContext?.isLoading && (
           <>
             {!authContext?.user ? (
