@@ -10,7 +10,7 @@ export default function IngredientApproval() {
 
   const handleApproval = (id: number, status: "yes" | "no") => {
     axiosClient
-      .put(`/ingredient/approval/${id}`, { status })
+      .put(`/api//ingredient/approval/${id}`, { status })
       .then(() => {
         toast.success(`Submitted`);
       })
