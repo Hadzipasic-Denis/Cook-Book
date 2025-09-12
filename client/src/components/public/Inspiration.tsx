@@ -38,7 +38,7 @@ export default function Inspiration() {
   const fetchRecipes = () => {
     setLoading(true);
     axiosClient
-      .post("/api//ingredient/filterRecipes", { ingredients })
+      .post("/ingredient/filterRecipes", { ingredients })
       .then((response) => {
         setRecipes(response.data);
       })
@@ -61,7 +61,7 @@ export default function Inspiration() {
     setLoading(true);
 
     axiosClient
-      .post("/api//ingredient/suggestIngredient", {
+      .post("/ingredient/suggestIngredient", {
         name: suggestedIngredient.trim(),
       })
       .then(() => {

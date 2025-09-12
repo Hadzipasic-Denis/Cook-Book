@@ -71,7 +71,7 @@ export default function RecipeForm() {
     }
 
     await axiosClient
-      .post("/api//recipe/createNewRecipe", formData, {
+      .post("/recipe/createNewRecipe", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {

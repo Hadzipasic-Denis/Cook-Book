@@ -18,7 +18,7 @@ export default function RecipeDetails() {
   const [savedMeals, setSavedMeals] = useState<WeeklyPlan>({});
   useEffect(() => {
     axiosClient
-      .get(`/api/recipe/recipeInformation/${id}`)
+      .get(`/recipe/recipeInformation/${id}`)
       .then((response) => {
         setRecipe(response.data);
         console.log(response.data);

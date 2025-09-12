@@ -21,11 +21,11 @@ app.use(express.json());
 
 app.use(express.static(path.resolve(__dirname, "client", "dist")));
 
-app.use("/ingredient", ingredientRouter);
-app.use("/recipe", recipeRouter);
-app.use("/user", userRouter);
+app.use("/api/ingredient", ingredientRouter);
+app.use("/api/recipe", recipeRouter);
+app.use("/api/user", userRouter);
 
-app.get("/*", (req, res) => {
+app.get(/(.*)/, (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
