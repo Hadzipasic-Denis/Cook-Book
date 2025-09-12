@@ -39,14 +39,21 @@ export default function Plan() {
     if (savedPlan) setPlan(JSON.parse(savedPlan));
   }, []);
 
+  const handleDelete = (day: keyof WeeklyPlan, meal: typeof meals[number], index: number) => {
+    const updatedPlan = { ...plan };
+    updatedPlan[day][meal] = updatedPlan[day][meal].filter((_, i) => i !== index);
+    setPlan(updatedPlan);
+    localStorage.setItem("weeklyPlan", JSON.stringify(updatedPlan));
+  };
+
   return (
     <div className="flex w-full">
       <Sidebar />
-      <div className="mx-auto pt-6 px-4 max-h-[100vh] overflow-x-auto">
+      <div className="w-full bg-slate-50 pt-6 px-4 min-h-[100vh] overflow-x-auto">
         <h1 className="text-2xl font-bold mb-6 text-center">
           Your Weekly Plan
         </h1>
-        <div className="grid grid-cols-7 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-7">
           {days.map((day) => (
             <div
               key={day}
@@ -58,20 +65,31 @@ export default function Plan() {
               {meals.map((meal) => (
                 <div
                   key={meal}
-                  className={`min-h-[80px] mb-4 py-2 px-8 rounded-lg border ${mealColors[meal]}`}
+                  className={`min-h-[80px] mb-4 py-2 px-4 rounded-lg border ${mealColors[meal]}`}
                 >
                   <h3 className="font-semibold text-center text-sm capitalize mb-2">
                     {meal}
                   </h3>
                   <div className="flex flex-col gap-2">
                     {(plan[day]?.[meal] || []).map((recipeId, i) => (
-                      <NavLink
+                      <div
                         key={i}
-                        to={`/recipes/${recipeId}`}
-                        className="px-3 py-1 bg-blue-400 text-white rounded hover:bg-blue-600 text-sm font-medium text-center"
+                        className="flex items-center justify-between bg-blue-100 p-2 rounded-lg"
                       >
-                        View Recipe
-                      </NavLink>
+                        <NavLink
+                          to={`/recipes/${recipeId}`}
+                          target="_blank"
+                          className="flex-1 px-3 py-1 bg-blue-400 text-white rounded hover:bg-blue-600 text-sm font-medium text-center"
+                        >
+                          View Recipe
+                        </NavLink>
+                        <button
+                          onClick={() => handleDelete(day, meal, i)}
+                          className="ml-2 px-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs"
+                        >
+                          ✕
+                        </button>
+                      </div>
                     ))}
                     {(plan[day]?.[meal] || []).length === 0 && (
                       <span className="text-gray-400 text-sm italic">

@@ -21,6 +21,7 @@ export default function RecipeDetails() {
       .get(`recipe/recipeInformation/${id}`)
       .then((response) => {
         setRecipe(response.data);
+        console.log(response.data);
       })
       .catch(() => {
         toast.error("Something went wrong!");
@@ -56,8 +57,8 @@ export default function RecipeDetails() {
     <div className="flex w-full">
       <Sidebar />
 
-      <div className="flex w-full h-screen">
-        <div className="w-1/3 bg-white border-r border-slate-200 p-6 overflow-y-auto">
+      <div className="flex flex-col w-full h-full md:flex-row md:h-screen">
+        <div className="w-full bg-white border-r border-slate-200 p-6 overflow-y-auto md:w-1/3 ">
           <h1 className="text-3xl font-extrabold text-gray-800 mb-6">
             {recipe.title}
           </h1>
@@ -184,12 +185,11 @@ export default function RecipeDetails() {
                 className="flex items-center gap-2 bg-slate-50 border border-slate-200 p-2 rounded-lg text-sm"
               >
                 <span className="w-2 h-2 rounded-full bg-sky-400"></span>
-                {ing.ammount} {ing.unit}{" "}
+                {ing.amount} {ing.unit}{" "}
                 <span className="font-medium">{ing.name}</span>
               </li>
             ))}
           </ul>
-
           {recipe.tags && (
             <div>
               <h2 className="text-xl font-bold mb-3">Tags</h2>
@@ -211,15 +211,7 @@ export default function RecipeDetails() {
               Add it to your weekly plan:
             </h2>
 
-            {[
-              "monday",
-              "tuesday",
-              "wednesday",
-              "thursday",
-              "friday",
-              "saturday",
-              "sunday",
-            ].map((day) => (
+            {["mon", "tue", "wed", "thu", "fri", "sat", "sun"].map((day) => (
               <div key={day} className="flex gap-3 items-center">
                 <span className="font-semibold capitalize w-20 mr-1">
                   {day}:
@@ -253,7 +245,7 @@ export default function RecipeDetails() {
           <img
             src={recipe.image}
             alt={recipe.title}
-            className="rounded-xl shadow-md w-full max-h-[350px] object-cover mb-8"
+            className="hidden rounded-xl shadow-md w-full max-h-[350px] object-cover mb-8 md:block"
           />
 
           <h2 className="text-2xl font-bold mb-6">Instructions</h2>

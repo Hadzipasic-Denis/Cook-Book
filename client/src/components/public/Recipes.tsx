@@ -9,9 +9,9 @@ export default function Recipes() {
   return (
     <div className="flex w-full">
       <Sidebar />
-      <div className="mx-auto pt-6 px-10 max-h-[100vh] overflow-y-scroll">
+      <div className="w-full bg-slate-50 px-4 mx-auto pt-6 min-h-[100vh] overflow-y-scroll md:px-10">
         <div className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-r from-blue-50 via-white to-green-50 p-4 rounded-xl shadow-md gap-4">
-          <div className="flex gap-4">
+          <div className="flex max-w-[320px] gap-4 overflow-x-scroll md:max-w-full md:overflow-x-auto">
             <select
               value={authContext?.filters.difficulty}
               onChange={(e) =>
@@ -20,7 +20,7 @@ export default function Recipes() {
                   difficulty: e.target.value,
                 }))
               }
-              className="w-[230px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 transition hover:bg-gray-100"
+              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 transition hover:bg-gray-100 md:w-[230px]"
             >
               <option value="">All difficulties</option>
               <option value="Easy">Easy</option>
@@ -39,7 +39,7 @@ export default function Recipes() {
                   max_kcal: e.target.value,
                 }))
               }
-              className="w-[230px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300 transition hover:bg-gray-100"
+              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300 transition hover:bg-gray-100 md:w-[230px]"
             />
 
             <input
@@ -53,7 +53,7 @@ export default function Recipes() {
                   max_cook_duration: e.target.value,
                 }))
               }
-              className="w-[230px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 transition hover:bg-gray-100"
+              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 transition hover:bg-gray-100 md:w-[230px] "
             />
 
             <select
@@ -64,7 +64,7 @@ export default function Recipes() {
                   category: e.target.value,
                 }))
               }
-              className="w-[230px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 transition hover:bg-gray-100"
+              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 transition hover:bg-gray-100 md:w-[230px]"
             >
               <option value="">All categories</option>
               <option value="Breakfast">Breakfast</option>
@@ -83,7 +83,7 @@ export default function Recipes() {
                   category: "",
                 })
               }
-              className="flex items-center gap-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+              className="flex items-center gap-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition order-first md:order-last"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +116,7 @@ export default function Recipes() {
                 title: e.target.value,
               }))
             }
-            className="w-[400px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition hover:bg-gray-100"
+            className="w-full order-first px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition hover:bg-gray-100 md:w-[400px]"
           />
         </div>
 

@@ -11,16 +11,15 @@ import { AuthContext } from "../../context/AuthProvider";
 import RecentRecipeCard from "./RecentRecipeCard";
 
 export default function Home() {
-  const authContext = useContext(AuthContext)
-  
-  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
 
+  const navigate = useNavigate();
 
   return (
     <div className="flex w-full">
       <Sidebar />
       <div className="w-full max-h-[100vh] bg-slate-50 overflow-y-scroll">
-        <div className="w-full max-w-6xl mx-auto mt-10">
+        <div className="w-full max-w-6xl mx-auto md:mt-10">
           <Swiper
             modules={[Pagination, Autoplay]}
             pagination={{ clickable: true }}
@@ -33,9 +32,9 @@ export default function Home() {
             className="rounded-2xl shadow-lg overflow-hidden"
           >
             <SwiperSlide>
-              <div className="flex flex-col md:flex-row items-center justify-between p-8 bg-gradient-to-r from-blue-50 via-white to-sky-50 h-[450px]">
-                <div className="max-w-md">
-                  <h1 className="text-4xl font-bold mb-4">
+              <div className="flex flex-col p-6 md:flex-row items-center justify-between p-4 bg-gradient-to-r from-blue-50 via-white to-sky-50 h-[450px]">
+                <div className="text-center max-w-md md:text-left">
+                  <h1 className="text-3xl font-bold mb-4 md:text-4xl">
                     Welcome to Cook-Book
                   </h1>
                   <p className="text-lg text-gray-600 mb-6">
@@ -54,15 +53,15 @@ export default function Home() {
                 <img
                   src={car1}
                   alt="CookBook Recipes"
-                  className="w-80 mr-24 hidden md:block"
+                  className="w-72 mt-4 md:block md:mr-24 md:mt-0"
                 />
               </div>
             </SwiperSlide>
 
             <SwiperSlide>
-              <div className="flex flex-col md:flex-row items-center justify-between p-8 bg-gradient-to-r from-green-50 via-white to-lime-50 h-[450px]">
-                <div className="max-w-md">
-                  <h1 className="text-4xl font-bold mb-4">
+              <div className="flex flex-col p-6 md:flex-row items-center justify-between p-4 bg-gradient-to-r from-blue-50 via-white to-sky-50 h-[450px]">
+                <div className="text-center max-w-md md:text-left">
+                  <h1 className="text-3xl font-bold mb-4 md:text-4xl">
                     Not sure what to cook?
                   </h1>
                   <p className="text-lg text-gray-600 mb-6">
@@ -81,15 +80,15 @@ export default function Home() {
                 <img
                   src={car2}
                   alt="Cooking Inspiration"
-                  className="w-[40%] mr-16 md:block"
+                  className="w-72 mt-8 mr-12 md:block md:mr-24 md:mt-0"
                 />
               </div>
             </SwiperSlide>
 
             <SwiperSlide>
-              <div className="flex flex-col md:flex-row items-center justify-between p-8 bg-gradient-to-r from-orange-50 via-white to-amber-100 h-[450px]">
-                <div className="max-w-md">
-                  <h1 className="text-4xl font-bold mb-4">Plan Your Week</h1>
+              <div className="flex flex-col p-6 md:flex-row items-center justify-between p-4 bg-gradient-to-r from-blue-50 via-white to-sky-50 h-[450px]">
+                <div className="text-center max-w-md md:text-left">
+                  <h1 className="text-3xl font-bold mb-4 md:text-4xl">Plan Your Week</h1>
                   <p className="text-lg text-gray-600 mb-6">
                     Stay organized and stress-free by planning your meals for
                     the week. Our Weekly Planner helps you balance nutrition,
@@ -106,7 +105,7 @@ export default function Home() {
                 <img
                   src={car3}
                   alt="Weekly Meal Plan"
-                  className="w-80 mr-24 md:block"
+                  className="w-72 md:block md:mr-24"
                 />
               </div>
             </SwiperSlide>
@@ -123,13 +122,10 @@ export default function Home() {
         </div>
 
         <div className="px-8 pb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-
-        {authContext?.recipesWithouthFilter?.slice(-3).map((recipe) => {
-          return(
-            < RecentRecipeCard key={recipe.id} recipe={recipe} />
-          )
-        })}
-      </div>
+          {authContext?.recipesWithouthFilter?.slice(-3).map((recipe) => {
+            return <RecentRecipeCard key={recipe.id} recipe={recipe} />;
+          })}
+        </div>
       </div>
     </div>
   );

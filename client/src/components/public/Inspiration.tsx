@@ -81,7 +81,7 @@ export default function Inspiration() {
         <h1 className="text-2xl font-bold mb-6 text-center">
           Recipe Inspiration
         </h1>
-        <div className="w-[50%] mx-auto">
+        <div className="w-full mx-auto md:w-[50%]">
           <div className="relative flex mx-auto gap-2 mb-4 ">
             <input
               type="text"
@@ -149,7 +149,7 @@ export default function Inspiration() {
         </div>
         {showModal && (
           <div className="fixed inset-0 z-50 py-2 flex items-center justify-center bg-black/50">
-            <div className="bg-white rounded-lg shadow-lg p-6 max-w-lg w-full relative">
+            <div className="bg-white rounded-lg shadow-lg p-6 max-w-lg w-[95%] relative md:w-full">
               <div className="flex flex-col items-center">
                 <h3 className="text-xl text-center font-semibold mb-4">
                   Suggest an Ingredient

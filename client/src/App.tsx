@@ -9,6 +9,7 @@ import RecipeDetails from "./components/public/RecipeDetails";
 import IngredientApproval from "./components/admin/IngredientApproval";
 import Plan from "./components/public/Plan";
 import { Bounce, ToastContainer } from "react-toastify";
+import Navbar from "./components/navigation/Navbar";
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         theme="light"
         transition={Bounce}
       />
+
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />

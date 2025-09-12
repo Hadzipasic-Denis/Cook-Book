@@ -7,7 +7,7 @@ export default function Sidebar() {
   const authContext = useContext(AuthContext);
 
   return (
-    <div className="flex flex-col gap-2 items-center w-[300px] max-w-[300px] min-h-[100vh] border-r shadow-xl">
+    <div className="hidden md:flex flex-col gap-2 items-center w-[300px] max-w-[300px] min-h-[100vh] border-r shadow-xl">
       <div>
         <img src={logo} width={140} alt="logo" />
       </div>
@@ -160,7 +160,7 @@ export default function Sidebar() {
                 ></path>
               </svg>
               <span className="transition-colors duration-300 group-hover:text-slate-900">
-                Plan
+                My Weekly Plan
               </span>
             </>
           )}

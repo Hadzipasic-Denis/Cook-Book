@@ -9,7 +9,7 @@ export interface User {
 export interface Ingredient {
   name: string;
   unit: string;
-  ammount: number;
+  amount: number;
 }
 
 export interface PendingApproval {

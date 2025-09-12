@@ -135,7 +135,6 @@ export default function RecipeForm() {
                 </div>
               </div>
 
-              {/* Short Description */}
               <div>
                 <label className="block mb-1 font-medium text-gray-700">
                   Short Description
@@ -148,7 +147,6 @@ export default function RecipeForm() {
                 />
               </div>
 
-              {/* Prep & Cook Duration, Servings, Rating */}
               <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
                 <div>
                   <label className="block mb-1 font-medium text-gray-700">
@@ -195,19 +193,19 @@ export default function RecipeForm() {
                     className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                   />
                 </div>
-                              <div>
-                <label className="block mb-1 font-medium text-gray-700">
-                  Calories (kcal)
-                </label>
-                <input
-                  type="number"
-                  min={0}
-                  {...register("kcal")}
-                  className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                />
+                <div>
+                  <label className="block mb-1 font-medium text-gray-700">
+                    Calories (kcal)
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    {...register("kcal")}
+                    className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  />
+                </div>
               </div>
-              </div>
-   <div>
+              <div>
                 <h4 className="font-medium text-gray-700 mb-2">Ingredients</h4>
                 {ingredientFields.map((field, index) => (
                   <div key={field.id} className="flex gap-2 mb-2">
@@ -260,41 +258,34 @@ export default function RecipeForm() {
                 </button>
               </div>
 
-              {/* Tags */}
               <div className="flex flex-col">
                 <h4 className="font-medium text-gray-700 mb-2">Tags</h4>
                 <div className="grid grid-cols-4">
-                {tagFields.map((field, index) => (
-                  <input
-                    key={field.id}
-                    {...register(`tags.${index}.value`)}
-                    placeholder={`Tag ${index + 1}`}
-                    className="w-fit mr-2 border border-gray-300 rounded-md p-2 mb-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                  />
-                ))}
+                  {tagFields.map((field, index) => (
+                    <input
+                      key={field.id}
+                      {...register(`tags.${index}.value`)}
+                      placeholder={`Tag ${index + 1}`}
+                      className="w-fit mr-2 border border-gray-300 rounded-md p-2 mb-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    />
+                  ))}
                 </div>
                 <div>
-                <button
-                  type="button"
-                  onClick={() => appendTag({ value: "" })}
-                  className="w-fit px-3 py-1 rounded bg-green-500 text-white hover:bg-green-600 transition"
-                >
-                  + Add Tag
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => appendTag({ value: "" })}
+                    className="w-fit px-3 py-1 rounded bg-green-500 text-white hover:bg-green-600 transition"
+                  >
+                    + Add Tag
+                  </button>
                 </div>
-
               </div>
 
-              {/* Ingredients */}
-           
-
-              {/* Image */}
               <div>
                 <label className="block mb-1 font-medium text-gray-700">
                   Recipe Image
                 </label>
 
-                {/* Hidden native input */}
                 <input
                   type="file"
                   {...register("image")}
@@ -302,7 +293,6 @@ export default function RecipeForm() {
                   className="hidden"
                 />
 
-                {/* Styled label as button */}
                 <label
                   htmlFor="image-upload"
                   className="inline-block w-full py-2 px-4 rounded-lg bg-green-500 text-white font-medium text-center cursor-pointer hover:bg-green-600 transition"
@@ -310,7 +300,6 @@ export default function RecipeForm() {
                   Choose Image
                 </label>
 
-                {/* Optionally show selected file name */}
                 {watch("image")?.[0]?.name && (
                   <p className="mt-2 text-sm text-gray-600">
                     {watch("image")[0].name}
@@ -318,7 +307,6 @@ export default function RecipeForm() {
                 )}
               </div>
 
-              {/* Submit */}
               <div className="flex justify-center">
                 <button
                   type="submit"
