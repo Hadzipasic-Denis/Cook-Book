@@ -1,14 +1,14 @@
 import "dotenv/config";
-import "./db.js";
+import "./db";
 
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import recipeRouter from "./routes/recipe-routes.js";
-import { errorHandler } from "./middlewares/errorHandler.js";
-import userRouter from "./routes/user-routes.js";
-import ingredientRouter from "./routes/ingredients-route.js";
+import recipeRouter from "./routes/recipe-routes";
+import { errorHandler } from "./middlewares/errorHandler";
+import userRouter from "./routes/user-routes";
+import ingredientRouter from "./routes/ingredients-route";
 import path from "path";
 
 const app = express();
