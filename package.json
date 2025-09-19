@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
+    "start": "node index.js",
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
     "build": "npm i && cd client && npm i && npm run build"
   },
@@ -16,7 +16,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/multer": "^1.4.13",
-    "@types/node": "^24.0.1",
+    "@types/node": "^24.5.2",
     "@types/pg": "^8.15.4",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
