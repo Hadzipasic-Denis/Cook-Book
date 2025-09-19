@@ -9,14 +9,13 @@ import recipeRouter from "./routes/recipe-routes";
 import { errorHandler } from "./middlewares/errorHandler";
 import userRouter from "./routes/user-routes";
 import ingredientRouter from "./routes/ingredients-route";
-import path from "path"
+import path from "path";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-
-app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
 app.use(cookieParser());
+app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
 app.use(express.json());
 
 app.use(express.static(path.resolve(__dirname, "client", "dist")));
