@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "build": "npm i && cd client && npm i && npm run build && ls dist"
+    "build": "npm i && tsc && cd client && npm i && npm run build"
   },
   "keywords": [],
   "author": "",
