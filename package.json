@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "build": "npm i && tsc && cd client && npm i && npm run build"
+    "build": "npm i && cd client && npm i && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +25,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "bcrypt": "^6.0.0",
+    "cloudinary": "^2.7.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
