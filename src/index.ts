@@ -1,5 +1,5 @@
 import "dotenv/config";
-import "../db";
+import "../db.ts";
 
 import express from "express";
 import cors from "cors";
