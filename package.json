@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.ts",
+    "start": "node dist/index.ts",
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "build": "npm i && cd client && npm i && npm run build"
+    "build": "npm i && cd client && npm i && npm run build && tsc"
   },
   "keywords": [],
   "author": "",
