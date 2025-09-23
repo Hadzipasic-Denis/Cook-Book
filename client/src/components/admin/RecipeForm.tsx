@@ -85,7 +85,7 @@ export default function RecipeForm() {
       <Sidebar />
       <div className="w-full max-h-[100vh] bg-slate-50 overflow-y-scroll">
         <div className="flex justify-center py-12">
-          <div className="drop-shadow-2xl max-h-fit min-w-[850px] max-w-[850px] bg-white dark:bg-gray-700 p-4 rounded-xl">
+          <div className="drop-shadow-2xl max-h-fit min-w-[850px] bg-white dark:bg-gray-700 p-4 rounded-xl">
             <h3 className="py-4 text-2xl text-center font-semibold text-gray-800 dark:text-white">
               Create a new recipe!
             </h3>
@@ -260,7 +260,7 @@ export default function RecipeForm() {
 
               <div className="flex flex-col">
                 <h4 className="font-medium text-gray-700 mb-2">Tags</h4>
-                <div className="grid grid-cols-4">
+                <div className="grid grid-cols-5">
                   {tagFields.map((field, index) => (
                     <input
                       key={field.id}

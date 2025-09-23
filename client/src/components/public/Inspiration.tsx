@@ -249,8 +249,22 @@ export default function Inspiration() {
                         </p>
                       </div>
                       <div className="text-center flex flex-col gap-2 min-w-[100px]">
-                        <p className="rounded-md bg-green-50 py-1 text-sm font-semibold text-[#689F1F] ring-1 ring-inset ring-[#689F1F] tracking-wide">
-                          {recipe.category}
+                        <p
+                          className={`rounded-md py-1 text-sm font-semibold ring-1 ring-inset tracking-wide
+    ${
+      recipe.category.toLowerCase() === "breakfast"
+        ? "bg-green-50 text-[#689F1F] ring-[#689F1F]"
+        : recipe.category.toLowerCase() === "lunch"
+        ? "bg-blue-50 text-[#1F6D9F] ring-[#1F6D9F]"
+        : recipe.category.toLowerCase() === "dinner"
+        ? "bg-red-50 text-[#9F1F1F] ring-[#9F1F1F]"
+        : recipe.category.toLowerCase() === "dessert"
+        ? "bg-pink-50 text-[#9F1F6D] ring-[#9F1F6D]"
+        : "bg-gray-50 text-gray-600 ring-gray-400"
+    }`}
+                        >
+                          {recipe.category.charAt(0).toUpperCase() +
+                            recipe.category.slice(1)}
                         </p>
                         <p className="text-sm text-gray-600 flex gap-1 justify-center items-center">
                           <svg
@@ -385,7 +399,9 @@ export default function Inspiration() {
                             <path d="m19 21l1 8m9-8l-1 8"></path>
                           </g>
                         </svg>{" "}
-                        Difficulty: {recipe.difficulty}
+                        Difficulty:{" "}
+                        {recipe.difficulty.charAt(0).toUpperCase() +
+                          recipe.difficulty.slice(1)}
                       </p>
                     </div>
                   </div>
